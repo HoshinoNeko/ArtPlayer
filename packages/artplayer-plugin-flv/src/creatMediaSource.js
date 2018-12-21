@@ -25,13 +25,13 @@ export default class CreatMediaSource {
             events: { proxy },
         } = this.flv;
 
-        config.mediaSource.events.forEach(eventName => {
+        config.mse.mediaSource.events.forEach(eventName => {
             proxy(this.mediaSource, eventName, event => {
                 this.flv.emit(`mediaSource:${event.type}`, event);
             });
         });
 
-        config.sourceBufferList.events.forEach(eventName => {
+        config.mse.sourceBufferList.events.forEach(eventName => {
             proxy(this.mediaSource.sourceBuffers, eventName, event => {
                 this.flv.emit(`sourceBuffers:${event.type}`, event);
             });

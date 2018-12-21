@@ -86,7 +86,7 @@ export default class FlvParse {
             switch (tag.tagType) {
                 case 18:
                     this.scripTag = parseScripTag(tag.body);
-                    this.flv.emit('parseScripTag', this.scripTag);
+                    this.flv.emit('flvParseScripTag', this.scripTag);
                     if (debug) {
                         console.log('[flv-parse-scrip-tag]', this.scripTag);
                     }

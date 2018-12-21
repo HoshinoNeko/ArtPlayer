@@ -504,7 +504,7 @@
     return CreatWorker;
   }();
 
-  var config = {
+  var mse = {
     mediaSource: {
       propertys: ['activeSourceBuffers', 'duration', 'readyState', 'sourceBuffers'],
       methods: ['addSourceBuffer', 'endOfStream', 'removeSourceBuffer', 'clearLiveSeekableRange', 'setLiveSeekableRange'],
@@ -519,6 +519,10 @@
       propertys: ['length'],
       events: ['addsourcebuffer', 'removesourcebuffer']
     }
+  };
+
+  var config = {
+    mse: mse
   };
 
   var CreatMediaSource =
@@ -551,12 +555,12 @@
         var _this = this;
 
         var proxy = this.flv.events.proxy;
-        config.mediaSource.events.forEach(function (eventName) {
+        config.mse.mediaSource.events.forEach(function (eventName) {
           proxy(_this.mediaSource, eventName, function (event) {
             _this.flv.emit("mediaSource:".concat(event.type), event);
           });
         });
-        config.sourceBufferList.events.forEach(function (eventName) {
+        config.mse.sourceBufferList.events.forEach(function (eventName) {
           proxy(_this.mediaSource.sourceBuffers, eventName, function (event) {
             _this.flv.emit("sourceBuffers:".concat(event.type), event);
           });
@@ -921,7 +925,7 @@
           switch (tag.tagType) {
             case 18:
               this.scripTag = parseScripTag(tag.body);
-              this.flv.emit('parseScripTag', this.scripTag);
+              this.flv.emit('flvParseScripTag', this.scripTag);
 
               if (debug) {
                 console.log('[flv-parse-scrip-tag]', this.scripTag);
